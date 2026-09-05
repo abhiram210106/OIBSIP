@@ -1,18 +1,44 @@
-## Getting Started
+# Online Reservation System
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Oasis Infobyte Java Development Internship
 
-## Folder Structure
+### Task 1 - Online Reservation System
 
-The workspace contains two folders by default, where:
+A Java-based Online Reservation System developed as part of the Oasis Infobyte Java Development Internship.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Features
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- User login and authentication
+- Train search and availability
+- Online ticket reservation
+- Passenger details management
+- Reservation database using SQLite
+- Reservation details and confirmation
+- User-friendly graphical interface
+- Train information displayed in the application
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Technologies Used
 
-## Dependency Management
+- Java
+- Java Swing
+- SQLite
+- JDBC
+- VS Code
+- Git & GitHub
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Project Structure
+
+```text
+OnlineReservationSystem/
+├── .vscode/
+├── data/
+│   ├── reservations.db
+│   ├── trains.csv
+│   ├── hero_banner.jpg
+│   └── irctc_logo.jpg
+├── lib/
+│   └── sqlite-jdbc-3.53.2.1.jar
+├── src/
+│   └── App.java
+├── README.md
+└── run.bat
