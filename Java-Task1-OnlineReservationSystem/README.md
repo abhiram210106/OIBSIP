@@ -42,3 +42,11 @@ OnlineReservationSystem/
 │   └── App.java
 ├── README.md
 └── run.bat
+
+## 🎥 Project Demonstration
+
+A complete demonstration of the project is available on my LinkedIn profile.
+
+▶️ Watch the Project Demo on LinkedIn : https://lnkd.in/p/dkaftrER
+
+The demonstration showcases the core functionality of the application, its user interface, and the implemented features.
