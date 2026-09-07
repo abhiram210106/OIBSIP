@@ -68,7 +68,7 @@ The game tracks:
 
 Watch the complete demonstration of the Number Guessing Game on LinkedIn:
 
-▶️ **[Watch Demo Video on LinkedIn]()**
+▶️ **[Watch Demo Video on LinkedIn](https://lnkd.in/p/dsW_e4An)**
 
 ## 📂 Project Structure
 
