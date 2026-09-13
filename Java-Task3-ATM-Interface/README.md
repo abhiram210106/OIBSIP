@@ -243,3 +243,11 @@ Simply double-click `web-showcase/index.html` or open it in Google Chrome, Micro
 - **Task**: Task 3 - ATM Interface
 - **Technology**: Java 21 LTS (Console Application), HTML5, CSS3, JavaScript
 - **Organization**: Oasis Infobyte in partnership with AICTE
+
+- ## 🎥 Project Demonstration
+
+Watch the complete demonstration of the ATM Interface on LinkedIn:
+
+▶️ **[Watch Demo Video on LinkedIn]()**
+
+The demonstration showcases the authentication process, ATM menu, banking transactions, validation, and transaction history.
