@@ -97,3 +97,11 @@ Java-Task4-Online Examination System/
 ├── run.bat                          # One-click compile & launch script
 └── README.md                        # Documentation and verification guide
 ```
+
+## 🎥 Project Demonstration
+
+Watch the complete demonstration of the **Online Examination System** on LinkedIn:
+
+▶️ **[Watch Demo Video on LinkedIn]()**
+
+The demonstration showcases the login system, profile management, exam instructions, MCQ-based examination, countdown timer, question navigation, question status tracking, exam submission, and final results.
