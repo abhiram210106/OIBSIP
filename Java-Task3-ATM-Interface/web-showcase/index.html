@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oasis National Bank of India | Corporate NetBanking &amp; Digital ATM Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Indian Government & RBI Regulatory Strip -->
+  <div class="gov-topstrip">
+    <div class="topstrip-inner">
+      <div class="gov-identity">
+        <span class="flag-icon">🇮🇳</span>
+        <span class="gov-text">भारत सरकार का उपक्रम | A Government of India Undertaking • Regulated by Reserve Bank of India (RBI)</span>
+      </div>
+      <div class="topstrip-links">
+        <span class="ssl-secure">🔒 256-Bit TLS Digicert Encrypted</span>
+        <span class="divider">|</span>
+        <span>National Cyber Crime Helpline: <strong>1930</strong></span>
+        <span class="divider">|</span>
+        <span>Toll Free: <strong>1800-425-3800</strong></span>
+        <span class="divider">|</span>
+        <span class="lang-switch">English / हिन्दी</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Bank Header & Navigation Bar -->
+  <header class="bank-navbar">
+    <div class="navbar-inner">
+      <div class="brand-container">
+        <div class="brand-crest">
+          <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
+            <rect width="40" height="40" rx="10" fill="#003366"/>
+            <circle cx="20" cy="20" r="14" stroke="#e6b800" stroke-width="2.5"/>
+            <path d="M20 9v22M9 20h22M12 12l16 16M28 12L12 28" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="4" fill="#e6b800"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-hindi">भारतीय ओएसिस बैंक</div>
+          <div class="brand-english">OASIS NATIONAL BANK OF INDIA</div>
+          <div class="brand-tagline">The Premier Bank for Digital India • Schedule-II Commercial Bank</div>
+        </div>
+      </div>
+
+      <div class="trust-seals">
+        <div class="seal-badge">
+          <span class="seal-icon">🏛️</span>
+          <span class="seal-text">RBI LICENSED</span>
+        </div>
+        <div class="seal-badge">
+          <span class="seal-icon">⚡</span>
+          <span class="seal-text">NPCI / IMPS 24x7</span>
+        </div>
+        <div class="seal-badge">
+          <span class="seal-icon">🛡️</span>
+          <span class="seal-text">DICGC INSURED</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Notice Ticker -->
+  <div class="news-ticker-bar">
+    <div class="ticker-label">LATEST ADVISORY</div>
+    <div class="ticker-content">
+      <marquee behavior="scroll" direction="left" scrollamount="6">
+        ⚠️ <strong>RBI Advisory:</strong> Oasis Bank never requests your OTP, UPI PIN, ATM PIN, or CVV. Never share banking credentials over phone or email. Report fraudulent SMS to 1930 immediately. • Special Fixed Deposit Rate: 7.25% p.a. for Senior Citizens. • 24x7 IMPS / UPI transfers are enabled for all savings accounts.
+      </marquee>
+    </div>
+  </div>
+
+  <!-- Primary Application Workspace -->
+  <div class="portal-layout">
+    <!-- Left Main Content Area -->
+    <main class="main-portal-content">
+      
+      <!-- ================= SECTION 1: AUTHENTICATION PORTAL ================= -->
+      <section id="auth-portal" class="portal-card active-card">
+        <div class="auth-grid">
+          <!-- Left Column: Login Form -->
+          <div class="auth-form-column">
+            <div class="auth-header">
+              <span class="portal-badge">RETAIL &amp; NRI NETBANKING</span>
+              <h2>Welcome to NetBanking &amp; Digital ATM</h2>
+              <p>Enter your registered Customer User ID and 4-Digit MPIN / ATM PIN to access your account.</p>
+            </div>
+
+            <!-- Demo Customer Profiles (Quick Access for Demonstration) -->
+            <div class="demo-customers-bar">
+              <span class="bar-title">Select Active Customer Profile to Auto-Fill:</span>
+              <div class="customer-pills">
+                <button type="button" class="cust-pill" onclick="selectDemoCustomer('1001', '1234')">
+                  <span class="cust-avatar">RS</span>
+                  <div class="cust-details">
+                    <strong>Rajesh Sharma</strong>
+                    <small>ID: 1001 • Balance: ₹1,25,000</small>
+                  </div>
+                </button>
+                <button type="button" class="cust-pill" onclick="selectDemoCustomer('1002', '4321')">
+                  <span class="cust-avatar">PP</span>
+                  <div class="cust-details">
+                    <strong>Priya Patel</strong>
+                    <small>ID: 1002 • Balance: ₹65,500</small>
+                  </div>
+                </button>
+                <button type="button" class="cust-pill" onclick="selectDemoCustomer('1003', '9999')">
+                  <span class="cust-avatar">AV</span>
+                  <div class="cust-details">
+                    <strong>Amit Verma</strong>
+                    <small>ID: 1003 • Balance: ₹2,50,000</small>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <form id="netbanking-login-form" onsubmit="event.preventDefault(); submitLogin();">
+              <div class="form-group">
+                <label for="cust-userid">Customer User ID / Account Number</label>
+                <div class="input-with-icon">
+                  <span class="field-icon">👤</span>
+                  <input type="text" id="cust-userid" placeholder="e.g. 1001" autocomplete="off" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="label-row">
+                  <label for="cust-pin">4-Digit ATM PIN / NetBanking MPIN</label>
+                  <button type="button" class="btn-toggle-keypad" onclick="toggleVirtualKeypad()">
+                    ⌨️ Toggle Virtual Keypad
+                  </button>
+                </div>
+                <div class="input-with-icon">
+                  <span class="field-icon">🔑</span>
+                  <input type="password" id="cust-pin" maxlength="4" placeholder="••••" autocomplete="off" required>
+                </div>
+              </div>
+
+              <!-- Virtual Keypad (Real Indian Bank Anti-Keylogger Defense) -->
+              <div id="virtual-keypad" class="virtual-keypad-panel hidden">
+                <div class="keypad-header">
+                  <span>Virtual Secure Keypad (Anti-Keylogger)</span>
+                  <span class="scramble-note">Numbers are scrambled for security</span>
+                </div>
+                <div class="keypad-buttons" id="keypad-btn-container">
+                  <!-- Generated dynamically in JS -->
+                </div>
+              </div>
+
+              <!-- Security Lockout / Error Message Box -->
+              <div id="login-alert" class="portal-alert error-alert hidden"></div>
+
+              <div class="form-actions">
+                <button type="submit" id="btn-login" class="btn-bank-primary">
+                  <span>Login to NetBanking / ATM</span>
+                  <span class="btn-arrow">→</span>
+                </button>
+              </div>
+
+              <div class="security-cert-row">
+                <span>🛡️ Digicert Extended Validation SSL</span>
+                <span>•</span>
+                <span>🔒 ISO 27001:2022 Certified Security</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right Column: Security Banner & RuPay Card Graphic -->
+          <div class="auth-info-column">
+            <div class="rupay-card-showcase">
+              <div class="rupay-platinum-card">
+                <div class="card-glass-shine"></div>
+                <div class="card-bank-header">
+                  <span class="card-emblem">🏛️ OASIS NATIONAL BANK</span>
+                  <span class="card-category">PLATINUM DEBIT</span>
+                </div>
+                <div class="card-chip-contactless">
+                  <div class="emv-gold-chip">
+                    <div class="chip-grid-line h"></div>
+                    <div class="chip-grid-line v"></div>
+                  </div>
+                  <div class="wifi-contactless">
+                    <span>)</span><span>)</span><span>)</span>
+                  </div>
+                </div>
+                <div class="card-number-row" id="card-cardnumber">5010 •••• •••• 8172</div>
+                <div class="card-meta-row">
+                  <div>
+                    <div class="card-lbl">CARDHOLDER NAME</div>
+                    <div class="card-val" id="card-holdername">RAJESH K SHARMA</div>
+                  </div>
+                  <div>
+                    <div class="card-lbl">VALID THRU</div>
+                    <div class="card-val">12/31</div>
+                  </div>
+                  <div class="rupay-badge">
+                    <span class="rupay-text">RuPay</span>
+                    <span class="platinum-text">PLATINUM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Indian Banking Anti-Phishing Advisory -->
+            <div class="safe-banking-box">
+              <h4>सुरक्षित बैंकिंग / Safe Digital Banking Tips</h4>
+              <ul>
+                <li>Always ensure the URL starts with <strong>https://</strong> before logging in.</li>
+                <li>Never share OTP, PIN, or CVV. Oasis Bank never asks for remote access apps like AnyDesk or TeamViewer.</li>
+                <li>Register for SMS/Email alerts to monitor real-time transaction updates.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 2: AUTHENTICATED BANKING DASHBOARD ================= -->
+      <section id="dashboard-portal" class="portal-card hidden">
+        <!-- Customer Account Summary Strip -->
+        <div class="customer-account-header">
+          <div class="cust-info">
+            <div class="cust-greeting">
+              <span class="greeting-prefix">Welcome,</span>
+              <h2 id="dash-cust-name">Rajesh Kumar Sharma</h2>
+              <span class="kyc-badge">KYC VERIFIED ✔</span>
+            </div>
+            <div class="account-spec-tags">
+              <span class="spec-tag">A/C: <strong id="dash-acc-no">501004928172</strong></span>
+              <span class="spec-tag">Type: <strong id="dash-acc-type">Privilege Savings</strong></span>
+              <span class="spec-tag">IFSC: <strong id="dash-ifsc">ONBI0001089</strong></span>
+              <span class="spec-tag">Branch: <strong>Fort Mumbai Main (001089)</strong></span>
+            </div>
+          </div>
+          <div class="balance-card">
+            <span class="bal-title">Total Available Balance</span>
+            <div class="bal-value-row">
+              <span class="rupee-symbol">₹</span>
+              <span class="bal-amount" id="dash-bal-amt">1,25,000.00</span>
+            </div>
+            <span class="bal-subtitle">Effective Available for Withdrawal &amp; Transfer</span>
+          </div>
+        </div>
+
+        <!-- Real Indian Banking Navigation Tabs -->
+        <nav class="bank-tabs-nav">
+          <button class="bank-tab-btn active" onclick="switchBankTab('tab-passbook')">
+            <span class="tab-icon">📄</span> Passbook &amp; Statement
+          </button>
+          <button class="bank-tab-btn" onclick="switchBankTab('tab-withdraw')">
+            <span class="tab-icon">🏧</span> Cash Withdrawal
+          </button>
+          <button class="bank-tab-btn" onclick="switchBankTab('tab-deposit')">
+            <span class="tab-icon">📥</span> Cash Deposit (CDM)
+          </button>
+          <button class="bank-tab-btn" onclick="switchBankTab('tab-transfer')">
+            <span class="tab-icon">⚡</span> Fund Transfer (IMPS 24x7)
+          </button>
+          <button class="bank-tab-btn" onclick="switchBankTab('tab-card')">
+            <span class="tab-icon">💳</span> RuPay Debit Card
+          </button>
+          <button class="bank-tab-btn tab-btn-logout" onclick="performLogout()">
+            <span class="tab-icon">🔒</span> Secure Logout
+          </button>
+        </nav>
+
+        <!-- TAB 1: PASSBOOK & ACCOUNT STATEMENT (ARRAYLIST TRANSACTION HISTORY) -->
+        <div id="tab-passbook" class="tab-pane active-pane">
+          <div class="pane-header">
+            <div>
+              <h3>Account Passbook &amp; Detailed Ledger</h3>
+              <p>Complete record of debits, credits, and real-time running balance.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-bank-secondary" onclick="printOfficialPassbook()">🖨️ Print Passbook</button>
+              <button class="btn-bank-secondary" onclick="simulateDownloadStatement()">📥 Download PDF Statement</button>
+            </div>
+          </div>
+
+          <!-- Passbook Statement Table -->
+          <div class="passbook-table-wrapper">
+            <table class="passbook-table">
+              <thead>
+                <tr>
+                  <th>Date &amp; Time (IST)</th>
+                  <th>UTR / Txn Ref No</th>
+                  <th>Narration / Description</th>
+                  <th>Channel</th>
+                  <th>Debit (Dr)</th>
+                  <th>Credit (Cr)</th>
+                  <th>Running Balance</th>
+                </tr>
+              </thead>
+              <tbody id="passbook-rows">
+                <!-- Dynamically populated from ArrayList -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="passbook-summary-footer">
+            <span id="passbook-entry-count">Total Ledger Entries: 1</span>
+            <span class="disclaimer-note">Computer generated passbook extract. No physical signature required.</span>
+          </div>
+        </div>
+
+        <!-- TAB 2: ATM CASH WITHDRAWAL -->
+        <div id="tab-withdraw" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h3>ATM Cash Dispenser</h3>
+              <p>Select a Fast Cash denomination or enter custom amount to dispense Indian currency.</p>
+            </div>
+          </div>
+
+          <div class="atm-panel-grid">
+            <div class="fast-cash-section">
+              <label class="section-lbl">Fast Cash Shortcuts:</label>
+              <div class="fast-cash-buttons">
+                <button type="button" class="btn-fast-cash" onclick="processWithdrawal(500)">₹500</button>
+                <button type="button" class="btn-fast-cash" onclick="processWithdrawal(1000)">₹1,000</button>
+                <button type="button" class="btn-fast-cash" onclick="processWithdrawal(2000)">₹2,000</button>
+                <button type="button" class="btn-fast-cash" onclick="processWithdrawal(5000)">₹5,000</button>
+                <button type="button" class="btn-fast-cash" onclick="processWithdrawal(10000)">₹10,000</button>
+                <button type="button" class="btn-fast-cash" onclick="processWithdrawal(20000)">₹20,000</button>
+              </div>
+
+              <div class="custom-amt-form">
+                <label for="custom-wth-amt">Or Enter Custom Amount (in multiples of ₹100 / ₹500):</label>
+                <div class="input-inline">
+                  <span class="inline-curr">₹</span>
+                  <input type="number" id="custom-wth-amt" placeholder="e.g. 3500" step="100" min="100">
+                  <button type="button" class="btn-bank-primary" onclick="processCustomWithdrawal()">Dispense Cash</button>
+                </div>
+              </div>
+
+              <div id="withdraw-status-msg" class="portal-alert hidden"></div>
+            </div>
+
+            <!-- ATM Cash Shutter & Denomination breakdown -->
+            <div class="atm-dispenser-simulator">
+              <div class="dispenser-box">
+                <div class="dispenser-shutter" id="atm-shutter">
+                  <div class="shutter-line"></div>
+                  <span id="shutter-label">CASH SHUTTER CLOSED</span>
+                </div>
+                <div class="dispensed-notes-area" id="dispensed-notes-display">
+                  <span class="standby-text">ATM Ready • Multiples of ₹500, ₹200, ₹100 available</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: CASH DEPOSIT (CDM RECYCLER) -->
+        <div id="tab-deposit" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h3>Cash Deposit Machine (CDM / Cash Recycler)</h3>
+              <p>Deposit currency banknotes directly into your savings account with real-time bill verification.</p>
+            </div>
+          </div>
+
+          <div class="cdm-grid">
+            <div class="cdm-form">
+              <div class="form-group">
+                <label for="deposit-bill-amt">Enter Deposit Amount (₹):</label>
+                <div class="input-inline">
+                  <span class="inline-curr">₹</span>
+                  <input type="number" id="deposit-bill-amt" placeholder="e.g. 15000" min="100" step="100">
+                  <button type="button" class="btn-bank-primary" onclick="processDeposit()">Insert &amp; Credit</button>
+                </div>
+              </div>
+              <p class="cdm-hint">Accepted Banknotes: ₹500, ₹200, ₹100. Soiled or mutilated notes will be returned automatically.</p>
+              <div id="deposit-status-msg" class="portal-alert hidden"></div>
+            </div>
+
+            <div class="cdm-visual-slot">
+              <div class="cdm-green-light"></div>
+              <div class="cdm-slot-mouth">
+                <span>INSERT CASH NOTES HERE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: INTER-BANK / INTRA-BANK FUND TRANSFER (IMPS 24x7) -->
+        <div id="tab-transfer" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h3>National Inter-Bank &amp; Intra-Bank Transfer</h3>
+              <p>Instant fund transfer powered by National Payments Corporation of India (NPCI / IMPS 24x7).</p>
+            </div>
+          </div>
+
+          <div class="transfer-form-grid">
+            <form onsubmit="event.preventDefault(); processFundTransfer();">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="beneficiary-id">Beneficiary Account ID / Number</label>
+                  <input type="text" id="beneficiary-id" placeholder="e.g. 1002 (Priya) or 1003 (Amit)" onchange="lookupBeneficiary()" required>
+                  <span class="beneficiary-preview" id="beneficiary-preview-text"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="transfer-ifsc">Beneficiary Bank IFSC Code</label>
+                  <input type="text" id="transfer-ifsc" value="ONBI0001089" required>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="transfer-amt-input">Amount to Transfer (₹)</label>
+                  <div class="input-inline">
+                    <span class="inline-curr">₹</span>
+                    <input type="number" id="transfer-amt-input" placeholder="e.g. 5000" min="1" step="1" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="transfer-remarks">Payment Narration / Remarks</label>
+                  <input type="text" id="transfer-remarks" placeholder="e.g. Invoice settlement, Rent, Family" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Transfer Type</label>
+                <div class="transfer-radio-group">
+                  <label class="radio-card active">
+                    <input type="radio" name="trf-type" value="IMPS" checked>
+                    <strong>IMPS (Immediate Payment Service)</strong>
+                    <small>Instant 24x7 • Zero Transaction Fees</small>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="trf-type" value="NEFT">
+                    <strong>NEFT (National Electronic Fund Transfer)</strong>
+                    <small>Hourly Batches • RBI Settlement</small>
+                  </label>
+                </div>
+              </div>
+
+              <div id="transfer-status-msg" class="portal-alert hidden"></div>
+
+              <button type="submit" class="btn-bank-primary">Confirm &amp; Transmit Funds via IMPS</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 5: RUPAY PLATINUM CARD MANAGEMENT -->
+        <div id="tab-card" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h3>RuPay Platinum Debit Card Controls</h3>
+              <p>Manage international/domestic limits, contactless tap &amp; pay, and card security.</p>
+            </div>
+          </div>
+
+          <div class="card-mgmt-grid">
+            <div class="card-controls-col">
+              <div class="control-row">
+                <div>
+                  <strong>Domestic ATM Cash Withdrawal Limit</strong>
+                  <p>Daily maximum withdrawal cap</p>
+                </div>
+                <span class="limit-badge">₹50,000 / Day</span>
+              </div>
+
+              <div class="control-row">
+                <div>
+                  <strong>Contactless Tap &amp; Pay (NFC)</strong>
+                  <p>Allow payments up to ₹5,000 without PIN</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked onchange="notifySetting('Contactless payment')">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="control-row">
+                <div>
+                  <strong>E-Commerce / Online Transactions</strong>
+                  <p>Verified by RuPay / 3D Secure OTP</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked onchange="notifySetting('Online transactions')">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="control-row danger-row">
+                <div>
+                  <strong>Emergency Card Hotlist / Temporary Freeze</strong>
+                  <p>Instantly lock card in case of theft or fraud</p>
+                </div>
+                <button type="button" class="btn-freeze-card" onclick="toggleCardFreeze(this)">Lock Card</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Sidebar: Official Indian Banking Information -->
+    <aside class="portal-sidebar">
+      <!-- RBI Kehta Hai Advisory Card -->
+      <div class="sidebar-card rbi-advisory-card">
+        <div class="rbi-header">
+          <span class="rbi-crest">🏛️</span>
+          <div>
+            <h4>RBI Kehta Hai...</h4>
+            <small>Reserve Bank of India Consumer Awareness</small>
+          </div>
+        </div>
+        <p class="rbi-quote">"Never share your OTP, UPI MPIN, Debit Card PIN, or CVV with anyone. Oasis Bank officials never solicit confidential credentials."</p>
+        <div class="rbi-footer">
+          <span>Report Cyber Crime: <strong>1930</strong></span>
+        </div>
+      </div>
+
+      <!-- Live Bank Deposit & Lending Rates -->
+      <div class="sidebar-card">
+        <h4>Official Interest Rates (p.a.)</h4>
+        <div class="rates-list">
+          <div class="rate-item">
+            <span>Special Term Deposit (444 Days)</span>
+            <strong>7.25%</strong>
+          </div>
+          <div class="rate-item">
+            <span>Senior Citizens Fixed Deposit</span>
+            <strong>7.75%</strong>
+          </div>
+          <div class="rate-item">
+            <span>Savings Bank Account Balance</span>
+            <strong>3.50%</strong>
+          </div>
+          <div class="rate-item">
+            <span>RBI Benchmark Repo Rate</span>
+            <strong>6.50%</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Branch & Support Information -->
+      <div class="sidebar-card">
+        <h4>Customer Support &amp; Grievance</h4>
+        <div class="support-info">
+          <p><strong>National 24x7 Toll-Free:</strong><br>1800-425-3800 / 1800-11-2211</p>
+          <p><strong>Email Support:</strong><br>care@oasisbank.co.in</p>
+          <p><strong>Principal Home Branch:</strong><br>Oasis National Bank, Fort Nariman Point, Mumbai, Maharashtra - 400021</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Official Bank Thermal Receipt Modal -->
+  <div id="receipt-modal" class="modal-backdrop hidden" onclick="closeReceiptModal()">
+    <div class="bank-receipt-sheet" onclick="event.stopPropagation()">
+      <div class="sheet-top">
+        <h3>भारतीय ओएसिस बैंक</h3>
+        <h4>OASIS NATIONAL BANK OF INDIA</h4>
+        <p>A Govt. of India Undertaking • Fort Mumbai Main Branch</p>
+        <p class="dotted-sep">----------------------------------------------------</p>
+        <h5>CUSTOMER TRANSACTION ADVICE SLIP</h5>
+      </div>
+      <div class="sheet-body" id="receipt-dynamic-content">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="sheet-bottom">
+        <p class="dotted-sep">----------------------------------------------------</p>
+        <p>Thank you for banking with Oasis National Bank.</p>
+        <p>This is a computer generated slip and requires no physical signature.</p>
+        <button class="btn-print-slip" onclick="window.print()">Print Slip</button>
+        <button class="btn-close-slip" onclick="closeReceiptModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="portal-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <strong>OASIS NATIONAL BANK OF INDIA</strong>
+        <p>© 2026 Oasis National Bank of India. All rights reserved. A Scheduled Commercial Bank licensed under Section 22 of Banking Regulation Act, 1949.</p>
+      </div>
+      <div class="footer-col text-right">
+        <p>Deposits insured up to ₹5 Lakhs by <strong>DICGC</strong> (Deposit Insurance and Credit Guarantee Corporation).</p>
+        <p>Security Audit by CERT-In Empanelled Auditor • 256-bit SHA-256 Encryption</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
