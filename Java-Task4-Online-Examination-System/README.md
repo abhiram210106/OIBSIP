@@ -1,4 +1,4 @@
-# 🎓 OASIS CBT • Online Examination System (Java Swing)
+# 🎓 Online Examination System 
 
 A modern, high-fidelity Computer-Based Testing (CBT) desktop application built with pure **Java 21** and **Java Swing**, designed following the exact specifications and user experience of standardized real-world testing portals (such as TCS iON, NTA, GRE, and Pearson VUE).
 
