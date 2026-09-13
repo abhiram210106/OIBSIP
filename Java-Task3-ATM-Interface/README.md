@@ -1,4 +1,4 @@
-# Oasis Infobyte / AICTE Internship - Task 3: ATM Interface
+# 🏧 ATM Interface
 
 An enterprise-grade, Object-Oriented **ATM Interface Simulation** developed in Java. Features a sleek ANSI-styled console interface, 3-attempt PIN security lockout, real-time balance validation, realistic cash denomination dispensing, thermal receipt generation, and an interactive modern web presentation companion.
 
