@@ -102,3 +102,11 @@ Java-Task5-DigitalLibraryManagementSystem/
 ├── run.bat / run.ps1            # 1-click startup scripts
 └── README.md                    # Project documentation
 ```
+
+## 🎥 Project Demonstration
+
+Watch the complete demonstration of the **Digital Library Management System** on LinkedIn:
+
+▶️ **[Watch Demo Video on LinkedIn]()**
+
+The demonstration showcases the digital library interface, book management, user management, book issuing, reservations, database integration, search functionality, and other core features of the system.
