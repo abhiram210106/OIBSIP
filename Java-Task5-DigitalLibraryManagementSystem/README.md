@@ -1,4 +1,4 @@
-# BiblioTech - Enterprise Digital Library Management System
+# 📚 Digital Library Management System
 ### Oasis Infobyte / AICTE Java Internship — Task 5
 
 A full-stack, real-world, web-based Digital Library Management System built with **Java 21**, **SQLite Relational Engine**, and a modern **Glassmorphic UI**.
