@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiblioTech | Modern Digital Library Management System</title>
+  <meta name="description" content="AICTE / Oasis Infobyte Task 5 Digital Library Management System with Admin & Member Portals, Auto Fine Calculation, and Advance Bookings.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Top Notification Bar -->
+  <div class="top-banner">
+    <div class="banner-inner container">
+      <span><i class="fa-solid fa-graduation-cap"></i> <strong>AICTE / Oasis Infobyte Task 5</strong> — Enterprise Digital Library Management System</span>
+      <div class="banner-right">
+        <span id="liveClock"><i class="fa-regular fa-clock"></i> Loading...</span>
+        <span class="fine-rate-badge"><i class="fa-solid fa-calculator"></i> Overdue Fine: ₹5 / Day</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="brand" onclick="switchView('catalogue')">
+        <div class="brand-icon">
+          <i class="fa-solid fa-book-bookmark"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Biblio<span>Tech</span></h1>
+          <p>Next-Gen Digital Library</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu" id="navMenu">
+        <button class="nav-link active" id="navCatalogue" onclick="switchView('catalogue')">
+          <i class="fa-solid fa-layer-group"></i> Catalogue
+        </button>
+
+        <!-- User Specific Nav -->
+        <button class="nav-link user-only" id="navMyLoans" onclick="switchView('my-loans')">
+          <i class="fa-solid fa-book-open-reader"></i> My Borrowed Books
+          <span class="nav-badge" id="myLoansCount">0</span>
+        </button>
+
+        <button class="nav-link user-only" id="navMyReservations" onclick="switchView('my-reservations')">
+          <i class="fa-solid fa-calendar-check"></i> My Reservations
+          <span class="nav-badge badge-amber" id="myResCount">0</span>
+        </button>
+
+        <button class="nav-link" id="navContact" onclick="switchView('contact')">
+          <i class="fa-regular fa-paper-plane"></i> Helpdesk & Queries
+        </button>
+
+        <!-- Admin Specific Nav -->
+        <button class="nav-link admin-only" id="navAdminDash" onclick="switchView('admin-dashboard')">
+          <i class="fa-solid fa-chart-line"></i> Admin Dashboard
+        </button>
+        <button class="nav-link admin-only" id="navAdminBooks" onclick="switchView('admin-books')">
+          <i class="fa-solid fa-book"></i> Book Inventory
+        </button>
+        <button class="nav-link admin-only" id="navAdminIssues" onclick="switchView('admin-issues')">
+          <i class="fa-solid fa-receipt"></i> Issued Records & Fines
+        </button>
+        <button class="nav-link admin-only" id="navAdminMembers" onclick="switchView('admin-members')">
+          <i class="fa-solid fa-users"></i> Members
+        </button>
+        <button class="nav-link admin-only" id="navAdminQueries" onclick="switchView('admin-queries')">
+          <i class="fa-solid fa-inbox"></i> Inquiries
+          <span class="nav-badge badge-rose" id="adminQueryCount">0</span>
+        </button>
+      </nav>
+
+      <!-- User Auth Section -->
+      <div class="nav-auth" id="navAuth">
+        <!-- Guest View -->
+        <div class="auth-guest" id="authGuest">
+          <button class="btn btn-outline btn-sm" onclick="openLoginModal('USER')">
+            <i class="fa-regular fa-user"></i> Student Login
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="openLoginModal('ADMIN')">
+            <i class="fa-solid fa-shield-halved"></i> Admin Portal
+          </button>
+        </div>
+
+        <!-- Logged In User View -->
+        <div class="auth-user" id="authUser" style="display: none;">
+          <div class="user-pill" onclick="toggleUserDropdown()">
+            <div class="user-avatar" id="navAvatar">A</div>
+            <div class="user-info">
+              <span class="user-name" id="navUserName">Aarav Sharma</span>
+              <span class="user-role-badge" id="navUserRole">STUDENT</span>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+
+          <!-- Dropdown -->
+          <div class="user-dropdown" id="userDropdown">
+            <div class="dropdown-header">
+              <strong id="dropdownFullName">User</strong>
+              <small id="dropdownEmail">email@campus.edu</small>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="javascript:void(0)" class="dropdown-item user-only" onclick="switchView('my-loans')">
+              <i class="fa-solid fa-book-bookmark"></i> My Borrowed Books
+            </a>
+            <a href="javascript:void(0)" class="dropdown-item user-only" onclick="switchView('my-reservations')">
+              <i class="fa-solid fa-bookmark"></i> Advance Reservations
+            </a>
+            <a href="javascript:void(0)" class="dropdown-item admin-only" onclick="switchView('admin-dashboard')">
+              <i class="fa-solid fa-gauge-high"></i> Administrative Control
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="javascript:void(0)" class="dropdown-item text-danger" onclick="logout()">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Demo Switcher Bar -->
+  <div class="demo-bar">
+    <div class="container demo-inner">
+      <span class="demo-tag"><i class="fa-solid fa-bolt"></i> 1-Click Examiner Demo:</span>
+      <button class="demo-btn" onclick="quickLogin('admin', 'admin123')">
+        <i class="fa-solid fa-crown text-amber"></i> Login as Admin
+      </button>
+      <button class="demo-btn" onclick="quickLogin('student1', 'user123')">
+        <i class="fa-solid fa-user-graduate text-emerald"></i> Login as Student (Aarav - Has Overdue Fine)
+      </button>
+      <button class="demo-btn" onclick="quickLogin('student2', 'user123')">
+        <i class="fa-solid fa-user-graduate text-cyan"></i> Login as Student (Priya)
+      </button>
+      <button class="demo-btn" onclick="openRegisterModal()">
+        <i class="fa-solid fa-user-plus"></i> Register New Member
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Areas -->
+  <main class="main-body container">
+
+    <!-- ============================================== -->
+    <!-- VIEW 1: BOOK CATALOGUE (PUBLIC / USER)         -->
+    <!-- ============================================== -->
+    <section id="viewCatalogue" class="content-view active">
+      <!-- Hero Banner -->
+      <div class="hero-card">
+        <div class="hero-content">
+          <span class="hero-pill"><i class="fa-solid fa-sparkles"></i> 24/7 Digital Library Access</span>
+          <h2 class="hero-title">Discover, Issue, and Advance-Reserve Thousands of Titles</h2>
+          <p class="hero-subtitle">Search by book title, author, or ISBN. Borrow instant physical copies or place advance bookings when books are on loan.</p>
+
+          <!-- Search Bar -->
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search by title, author name, or ISBN number (e.g. Clean Code, Cormen, 978...)" oninput="handleSearch()">
+            <button class="btn btn-primary" onclick="handleSearch()">Search Catalogue</button>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="h-stat-box">
+            <h3 id="statTotalTitles">12+</h3>
+            <p>Curated Titles</p>
+          </div>
+          <div class="h-stat-box">
+            <h3 id="statAvailCopies">40+</h3>
+            <p>Available Copies</p>
+          </div>
+          <div class="h-stat-box">
+            <h3 id="statActiveLoans">03</h3>
+            <p>Active Borrowers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="filter-section">
+        <div class="filter-title">
+          <span><i class="fa-solid fa-filter"></i> Browse by Category</span>
+        </div>
+        <div class="category-pills" id="categoryPills">
+          <button class="cat-pill active" onclick="filterByCategory('All')">All Books</button>
+          <!-- Dynamic categories injected here -->
+        </div>
+      </div>
+
+      <!-- Books Grid -->
+      <div class="books-grid-header">
+        <div class="showing-text" id="booksShowingText">Showing all books</div>
+        <div class="sort-selector">
+          <label><i class="fa-solid fa-arrow-down-short-wide"></i> Sort:</label>
+          <select id="bookSortSelect" onchange="sortBooks(this.value)">
+            <option value="title-asc">Title: A to Z</option>
+            <option value="title-desc">Title: Z to A</option>
+            <option value="rating-desc">Highest Rated</option>
+            <option value="avail-desc">Most Available</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="books-grid" id="booksGrid">
+        <!-- Rendered dynamically -->
+        <div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Loading catalogue...</div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 2: MY BORROWED BOOKS (USER MODULE)        -->
+    <!-- ============================================== -->
+    <section id="viewMyLoans" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-book-open-reader text-indigo"></i> My Borrowed Books & Fines</h2>
+          <p>Track your active book loans, upcoming due dates, and automatically computed overdue fines (₹5/day).</p>
+        </div>
+        <button class="btn btn-outline" onclick="switchView('catalogue')">
+          <i class="fa-solid fa-plus"></i> Borrow More Books
+        </button>
+      </div>
+
+      <!-- Overdue Fine Alert Banner if any -->
+      <div id="userFineAlert" class="alert-banner warning" style="display: none;">
+        <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="alert-content">
+          <h4>Overdue Fine Warning</h4>
+          <p id="userFineAlertText">You have overdue books generating daily fines. Please return them promptly or visit the desk.</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="custom-table" id="myLoansTable">
+          <thead>
+            <tr>
+              <th>Book Title & ISBN</th>
+              <th>Issue Date</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Overdue Fine</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="myLoansTbody">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 3: MY RESERVATIONS (ADVANCE BOOKING)      -->
+    <!-- ============================================== -->
+    <section id="viewMyReservations" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-calendar-check text-amber"></i> Advance Bookings & Reservations</h2>
+          <p>Books you have reserved while they are currently on loan to other members. You get first priority when returned.</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="custom-table" id="myResTable">
+          <thead>
+            <tr>
+              <th>Book</th>
+              <th>Reservation Date</th>
+              <th>Status</th>
+              <th>Queue Position</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="myResTbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 4: CONTACT & QUERY FORMS                  -->
+    <!-- ============================================== -->
+    <section id="viewContact" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-regular fa-paper-plane text-cyan"></i> Helpdesk & Query Form</h2>
+          <p>Submit inquiries, purchase requests, or feedback to the library management administration.</p>
+        </div>
+      </div>
+
+      <div class="contact-layout">
+        <div class="contact-card">
+          <h3><i class="fa-solid fa-pen-to-square"></i> Send an Inquiry to the Librarian</h3>
+          <p>All queries are logged in the database and monitored by the administrative team.</p>
+
+          <form id="contactForm" onsubmit="submitQuery(event)">
+            <div class="form-group">
+              <label>Your Full Name *</label>
+              <input type="text" id="queryName" placeholder="e.g. Aarav Sharma" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" id="queryEmail" placeholder="e.g. aarav@campus.edu" required>
+            </div>
+            <div class="form-group">
+              <label>Subject *</label>
+              <input type="text" id="querySubject" placeholder="e.g. Book Acquisition Request / Extension" required>
+            </div>
+            <div class="form-group">
+              <label>Detailed Message *</label>
+              <textarea id="queryMessage" rows="5" placeholder="Explain your inquiry, suggestion, or question in detail..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fa-solid fa-paper-plane"></i> Submit Query
+            </button>
+          </form>
+        </div>
+
+        <div class="contact-info-card">
+          <h3>Central Digital Library Desk</h3>
+          <div class="info-list">
+            <div class="info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                <strong>Location</strong>
+                <p>Knowledge Resource Center, Main Campus, Block C</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                <strong>Circulation Desk Hours</strong>
+                <p>Mon - Sat: 8:00 AM - 9:00 PM | Sun: 10:00 AM - 4:00 PM</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <div>
+                <strong>Library Policy & Fines</strong>
+                <p>Standard issue duration: 14 Days. Maximum 5 books per member. Overdue charge is strictly <strong>₹5 per day</strong>.</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <strong>Direct Desk Email</strong>
+                <p>librarian@digitallibrary.org</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 5: ADMIN DASHBOARD (ANALYTICS)            -->
+    <!-- ============================================== -->
+    <section id="viewAdminDashboard" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-gauge-high text-indigo"></i> Administrative Command Center</h2>
+          <p>Real-time analytics, inventory management, lending metrics, and fine recovery.</p>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-primary" onclick="openAddBookModal()">
+            <i class="fa-solid fa-plus"></i> Add New Book
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Metrics Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon icon-blue"><i class="fa-solid fa-book"></i></div>
+          <div class="kpi-info">
+            <span class="kpi-label">Unique Titles</span>
+            <h3 class="kpi-value" id="kpiTotalTitles">0</h3>
+            <span class="kpi-sub" id="kpiTotalCopies">0 physical copies</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-emerald"><i class="fa-solid fa-book-bookmark"></i></div>
+          <div class="kpi-info">
+            <span class="kpi-label">Active Loans</span>
+            <h3 class="kpi-value" id="kpiActiveLoans">0</h3>
+            <span class="kpi-sub">Currently in circulation</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-rose"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <div class="kpi-info">
+            <span class="kpi-label">Overdue Books</span>
+            <h3 class="kpi-value text-danger" id="kpiOverdueLoans">0</h3>
+            <span class="kpi-sub">Subject to ₹5/day penalty</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-amber"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          <div class="kpi-info">
+            <span class="kpi-label">Pending Fines</span>
+            <h3 class="kpi-value text-amber" id="kpiPendingFines">₹0</h3>
+            <span class="kpi-sub" id="kpiCollectedFines">Collected: ₹0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-purple"><i class="fa-solid fa-users"></i></div>
+          <div class="kpi-info">
+            <span class="kpi-label">Registered Members</span>
+            <h3 class="kpi-value" id="kpiTotalMembers">0</h3>
+            <span class="kpi-sub">Active library cardholders</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-cyan"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="kpi-info">
+            <span class="kpi-label">Advance Bookings</span>
+            <h3 class="kpi-value" id="kpiReservations">0</h3>
+            <span class="kpi-sub">Waitlisted titles</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Shortcuts -->
+      <div class="admin-quick-actions">
+        <h3><i class="fa-solid fa-bolt"></i> Quick Operations</h3>
+        <div class="quick-btn-row">
+          <button class="btn btn-outline" onclick="switchView('admin-books')">
+            <i class="fa-solid fa-list-check"></i> Manage Book Catalogue
+          </button>
+          <button class="btn btn-outline" onclick="switchView('admin-issues')">
+            <i class="fa-solid fa-receipt"></i> Process Returns & Fines
+          </button>
+          <button class="btn btn-outline" onclick="switchView('admin-members')">
+            <i class="fa-solid fa-user-gear"></i> Member Accounts
+          </button>
+          <button class="btn btn-outline" onclick="switchView('admin-queries')">
+            <i class="fa-solid fa-inbox"></i> View Inquiries (<span id="quickQueryCount">0</span>)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 6: ADMIN BOOK INVENTORY                   -->
+    <!-- ============================================== -->
+    <section id="viewAdminBooks" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-book text-indigo"></i> Book Inventory & Catalogue Management</h2>
+          <p>Add new books, edit metadata, update stock levels, or retire outdated volumes.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddBookModal()">
+          <i class="fa-solid fa-plus"></i> Add New Book
+        </button>
+      </div>
+
+      <div class="table-toolbar">
+        <div class="search-box small">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="adminBookSearch" placeholder="Filter inventory..." oninput="renderAdminBooks()">
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="custom-table" id="adminBooksTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cover</th>
+              <th>Title & Author</th>
+              <th>Category</th>
+              <th>ISBN</th>
+              <th>Total / Available</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminBooksTbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 7: ADMIN ISSUED RECORDS & FINES           -->
+    <!-- ============================================== -->
+    <section id="viewAdminIssues" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-receipt text-indigo"></i> Issued Books, Due Dates & Fine Recovery</h2>
+          <p>Monitor all circulated copies, track return deadlines, and mark fines as collected.</p>
+        </div>
+        <div class="filter-pills">
+          <button class="filter-btn active" onclick="filterAdminIssues('ALL')">All Records</button>
+          <button class="filter-btn" onclick="filterAdminIssues('ISSUED')">Active Loans</button>
+          <button class="filter-btn text-danger" onclick="filterAdminIssues('OVERDUE')">Overdue Only</button>
+          <button class="filter-btn" onclick="filterAdminIssues('RETURNED')">Returned</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="custom-table" id="adminIssuesTable">
+          <thead>
+            <tr>
+              <th>Loan #</th>
+              <th>Book Details</th>
+              <th>Borrower</th>
+              <th>Issue Date</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Overdue Fine</th>
+              <th>Payment</th>
+              <th>Desk Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminIssuesTbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 8: ADMIN MEMBERS MANAGEMENT               -->
+    <!-- ============================================== -->
+    <section id="viewAdminMembers" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-users text-indigo"></i> Registered Member Directory</h2>
+          <p>Manage student and staff cardholders, view account statuses, and edit privileges.</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="custom-table" id="adminMembersTable">
+          <thead>
+            <tr>
+              <th>Member ID</th>
+              <th>Full Name</th>
+              <th>Username</th>
+              <th>Email & Phone</th>
+              <th>System Role</th>
+              <th>Registered Since</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminMembersTbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VIEW 9: ADMIN INQUIRIES & QUERIES              -->
+    <!-- ============================================== -->
+    <section id="viewAdminQueries" class="content-view">
+      <div class="view-header">
+        <div>
+          <h2><i class="fa-solid fa-inbox text-indigo"></i> Patron Queries & Contact Submissions</h2>
+          <p>Review inquiries submitted via the helpdesk portal and dispatch official replies.</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="custom-table" id="adminQueriesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Sender</th>
+              <th>Subject</th>
+              <th>Message Body</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminQueriesTbody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================== -->
+  <!-- MODALS                                         -->
+  <!-- ============================================== -->
+
+  <!-- 1. LOGIN MODAL -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="loginModalTitle"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Library</h3>
+        <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="quick-creds-hint">
+          <small><i class="fa-solid fa-circle-info"></i> Demo: <strong>admin</strong> / <strong>admin123</strong> or <strong>student1</strong> / <strong>user123</strong></small>
+        </div>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="loginUsername" required placeholder="Enter your username">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required placeholder="Enter password">
+          </div>
+          <div id="loginError" class="form-error"></div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+        <div class="modal-footer-text">
+          <span>Don't have an account? <a href="javascript:void(0)" onclick="switchToRegister()">Register Here</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. REGISTER MODAL -->
+  <div class="modal-overlay" id="registerModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-plus"></i> Member Registration</h3>
+        <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="registerForm" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="regFullName" required placeholder="e.g. Maya Krishnan">
+          </div>
+          <div class="form-group">
+            <label>Username *</label>
+            <input type="text" id="regUsername" required placeholder="e.g. mayak">
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="regEmail" required placeholder="e.g. maya@campus.edu">
+          </div>
+          <div class="form-group">
+            <label>Contact Phone</label>
+            <input type="tel" id="regPhone" placeholder="+91 98765 00000">
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" id="regPassword" required placeholder="Choose a strong password">
+          </div>
+          <div id="regError" class="form-error"></div>
+          <button type="submit" class="btn btn-primary btn-block">Complete Registration</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ADD / EDIT BOOK MODAL -->
+  <div class="modal-overlay" id="bookModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="bookModalTitle"><i class="fa-solid fa-book"></i> Add New Book to Catalogue</h3>
+        <button class="modal-close" onclick="closeModal('bookModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="bookForm" onsubmit="saveBook(event)">
+          <input type="hidden" id="bookFormId">
+          <div class="form-row">
+            <div class="form-group col-8">
+              <label>Book Title *</label>
+              <input type="text" id="bookTitle" required placeholder="e.g. Introduction to Algorithms">
+            </div>
+            <div class="form-group col-4">
+              <label>Published Year</label>
+              <input type="text" id="bookYear" placeholder="e.g. 2023">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>Author(s) *</label>
+              <input type="text" id="bookAuthor" required placeholder="e.g. Thomas H. Cormen">
+            </div>
+            <div class="form-group col-6">
+              <label>ISBN Number *</label>
+              <input type="text" id="bookIsbn" required placeholder="e.g. 978-0262033848">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-4">
+              <label>Category *</label>
+              <input type="text" id="bookCategory" required placeholder="e.g. Computer Science" list="categoryOptions">
+              <datalist id="categoryOptions">
+                <option value="Computer Science">
+                <option value="Artificial Intelligence">
+                <option value="Programming">
+                <option value="Database Systems">
+                <option value="Algorithms & DS">
+                <option value="Operating Systems">
+                <option value="Software Engineering">
+                <option value="Self Development">
+                <option value="History & Science">
+                <option value="Business & Startups">
+              </datalist>
+            </div>
+            <div class="form-group col-4">
+              <label>Total Physical Copies *</label>
+              <input type="number" id="bookTotalQty" min="1" value="3" required>
+            </div>
+            <div class="form-group col-4">
+              <label>Available Copies *</label>
+              <input type="number" id="bookAvailQty" min="0" value="3" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Cover Image URL (Web or Unsplash)</label>
+            <input type="url" id="bookCoverUrl" placeholder="https://images.unsplash.com/photo-...">
+          </div>
+
+          <div class="form-group">
+            <label>Book Description / Synopsis</label>
+            <textarea id="bookDescription" rows="3" placeholder="Brief summary of the book content and syllabus alignment..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Save Book Record</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RETURN RECEIPT & FINE RECEIPT MODAL -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="modal-card receipt-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-receipt"></i> Circulation Return Receipt</h3>
+        <button class="modal-close" onclick="closeModal('receiptModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="receiptContent">
+        <!-- Dynamic receipt structure -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Receipt</button>
+        <button class="btn btn-primary" onclick="closeModal('receiptModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ADMIN QUERY REPLY MODAL -->
+  <div class="modal-overlay" id="queryReplyModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-reply"></i> Reply to Inquiry</h3>
+        <button class="modal-close" onclick="closeModal('queryReplyModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="queryDetailsBox" class="query-preview-box"></div>
+        <form id="queryReplyForm" onsubmit="sendQueryReply(event)">
+          <input type="hidden" id="replyQueryId">
+          <div class="form-group">
+            <label>Official Resolution / Reply *</label>
+            <textarea id="queryReplyText" rows="4" required placeholder="Type the official answer or instructions for the patron..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit Resolution & Mark Resolved</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="brand">
+          <div class="brand-icon small"><i class="fa-solid fa-book-bookmark"></i></div>
+          <span>BiblioTech Digital Library System</span>
+        </div>
+        <p>Built for AICTE / Oasis Infobyte Java Internship Task 5.</p>
+      </div>
+      <div class="footer-right">
+        <span><i class="fa-solid fa-code"></i> Java 21 + SQLite Relational Engine</span>
+        <span><i class="fa-solid fa-shield-check"></i> Role-based Access Control (Admin & Student)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
