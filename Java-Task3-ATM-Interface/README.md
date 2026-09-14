@@ -248,6 +248,6 @@ Simply double-click `web-showcase/index.html` or open it in Google Chrome, Micro
 
 Watch the complete demonstration of the ATM Interface on LinkedIn:
 
-▶️ **[Watch Demo Video on LinkedIn]()**
+▶️ **[Watch Demo Video on LinkedIn](https://www.linkedin.com/posts/abhiram-vaka-92b549403_java-javadevelopment-oasisinfobyte-activity-7505283584937824256-cuE-?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGchMfMBmF1egtjNuI_sq4VEirHo24mNQDY)**
 
 The demonstration showcases the authentication process, ATM menu, banking transactions, validation, and transaction history.
