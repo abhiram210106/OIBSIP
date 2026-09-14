@@ -107,6 +107,6 @@ Java-Task5-DigitalLibraryManagementSystem/
 
 Watch the complete demonstration of the **Digital Library Management System** on LinkedIn:
 
-▶️ **[Watch Demo Video on LinkedIn]()**
+▶️ **[Watch Demo Video on LinkedIn](https://lnkd.in/p/dhuzyHuQ)**
 
 The demonstration showcases the digital library interface, book management, user management, book issuing, reservations, database integration, search functionality, and other core features of the system.
